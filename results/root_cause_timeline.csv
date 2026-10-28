@@ -1,0 +1,5 @@
+case_id,manoeuvre_start_s,t_line_cross,t_intrusion_0p3,t_confirmed,t_selected,t_brake,a_kin_at_selection,t_collision,v_rel_impact_kph,min_ttc_s,first_boundary_approaching,dca_lateral,t_lane_departure,v_min_kph
+OFF-CO-NCAPAD-2,4.000000,,,Lead=0.2 Stat=5.12,5.12,5.16,4.025113246216201,8.44,20.7,0.009,,,,11.78
+OFF-LB-NCAPVA,4.000000,,,Lead=0.2,0.2,4.36,0.00018257939357522348,8.52,2.06,0.003,,,,0.0
+CV-R250-v130-csa,,,,,,5.4,,,0.0,,6.2,13.6,14.78,90.78
+CI-dv60-vl1.5-ttc+1.00,4.000000,4.765,4.907,Target=0.2,4.84,4.96,3.224774118194123,,0.0,0.989,,,,41.14

@@ -1,0 +1,29 @@
+case_id,label,variant,verdict,safe,v_rel_impact_kph,min_ttc_s,peak_decel_500ms,t_selected,t_brake,lane_departure,v_min_kph,peak_ay
+OFF-CO-NCAPAD-2,Euro NCAP AD 4.3.1 90/70 TTC 2.0,baseline,FAIL_COLLISION,False,20.7,0.009,5.0,5.12,5.16,False,11.78,0.0
+OFF-CO-NCAPAD-2,Euro NCAP AD 4.3.1 90/70 TTC 2.0,perfect_perception,FAIL_COLLISION,False,4.83,0.004,5.0,4.96,5.0,False,0.0,0.0
+OFF-CO-NCAPAD-2,Euro NCAP AD 4.3.1 90/70 TTC 2.0,no_actuator_lag,FAIL_TTC,False,0.0,0.969,5.0,5.12,5.16,False,0.0,0.0
+OFF-CO-NCAPAD-2,Euro NCAP AD 4.3.1 90/70 TTC 2.0,lead_accel_ff,FAIL_COLLISION,False,20.7,0.009,5.0,5.12,5.16,False,11.78,0.0
+OFF-CO-NCAPAD-2,Euro NCAP AD 4.3.1 90/70 TTC 2.0,t_pred_2s,FAIL_COLLISION,False,20.7,0.009,5.0,5.12,5.16,False,11.78,0.0
+OFF-CO-NCAPAD-2,Euro NCAP AD 4.3.1 90/70 TTC 2.0,authority_9,FAIL_DECEL,False,0.0,1.443,7.961,5.12,5.16,False,0.0,0.0
+OFF-CO-NCAPAD-2,Euro NCAP AD 4.3.1 90/70 TTC 2.0,a_curve_plan_1,FAIL_COLLISION,False,20.7,0.009,5.0,5.12,5.16,False,11.78,0.0
+OFF-LB-NCAPVA,Euro NCAP VA 2.1.3 CCRb 55/50 (closest gap),baseline,FAIL_COLLISION,False,2.06,0.003,4.997,0.2,4.36,False,0.0,0.0
+OFF-LB-NCAPVA,Euro NCAP VA 2.1.3 CCRb 55/50 (closest gap),perfect_perception,FAIL_TTC,False,0.0,0.64,4.994,0.0,4.24,False,0.0,0.0
+OFF-LB-NCAPVA,Euro NCAP VA 2.1.3 CCRb 55/50 (closest gap),no_actuator_lag,PASS_HARSH,True,0.0,1.007,5.0,0.2,4.36,False,0.0,0.0
+OFF-LB-NCAPVA,Euro NCAP VA 2.1.3 CCRb 55/50 (closest gap),lead_accel_ff,PASS_HARSH,True,0.0,2.379,4.405,0.2,4.36,False,0.11,0.0
+OFF-LB-NCAPVA,Euro NCAP VA 2.1.3 CCRb 55/50 (closest gap),t_pred_2s,FAIL_COLLISION,False,2.06,0.003,4.997,0.2,4.36,False,0.0,0.0
+OFF-LB-NCAPVA,Euro NCAP VA 2.1.3 CCRb 55/50 (closest gap),authority_9,FAIL_TTC,False,0.0,0.823,8.759,0.2,4.36,False,0.0,0.0
+OFF-LB-NCAPVA,Euro NCAP VA 2.1.3 CCRb 55/50 (closest gap),a_curve_plan_1,FAIL_COLLISION,False,2.06,0.003,4.997,0.2,4.36,False,0.0,0.0
+CV-R250-v130-csa,,baseline,BOUNDARY_HANDLED,False,0.0,,1.5,,5.4,True,90.78,2.78
+CV-R250-v130-csa,,perfect_perception,BOUNDARY_HANDLED,False,0.0,,1.5,,5.4,True,90.78,2.78
+CV-R250-v130-csa,,no_actuator_lag,BOUNDARY_HANDLED,False,0.0,,1.5,,5.5,False,91.35,2.783
+CV-R250-v130-csa,,lead_accel_ff,BOUNDARY_HANDLED,False,0.0,,1.5,,5.4,True,90.78,2.78
+CV-R250-v130-csa,,t_pred_2s,BOUNDARY_HANDLED,False,0.0,,1.5,,5.4,True,90.78,2.78
+CV-R250-v130-csa,,authority_9,BOUNDARY_HANDLED,False,0.0,,1.5,,5.4,True,90.78,2.78
+CV-R250-v130-csa,,a_curve_plan_1,PASS,True,0.0,,1.085,,2.7,False,87.23,2.72
+CI-dv60-vl1.5-ttc+1.00,,baseline,FAIL_TTC,False,0.0,0.989,5.0,4.84,4.96,False,41.14,0.0
+CI-dv60-vl1.5-ttc+1.00,,perfect_perception,PASS_HARSH,True,0.0,1.847,4.936,4.36,4.48,False,51.0,0.0
+CI-dv60-vl1.5-ttc+1.00,,no_actuator_lag,PASS_HARSH,True,0.0,1.705,5.0,4.84,4.96,False,50.95,0.0
+CI-dv60-vl1.5-ttc+1.00,,lead_accel_ff,FAIL_TTC,False,0.0,0.989,5.0,4.84,4.96,False,41.14,0.0
+CI-dv60-vl1.5-ttc+1.00,,t_pred_2s,PASS_HARSH,True,0.0,1.242,5.0,4.68,4.8,False,40.67,0.0
+CI-dv60-vl1.5-ttc+1.00,,authority_9,FAIL_DECEL,False,0.0,1.561,6.573,4.84,4.96,False,50.87,0.0
+CI-dv60-vl1.5-ttc+1.00,,a_curve_plan_1,FAIL_TTC,False,0.0,0.989,5.0,4.84,4.96,False,41.14,0.0

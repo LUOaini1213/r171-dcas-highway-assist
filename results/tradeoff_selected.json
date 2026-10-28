@@ -1,0 +1,8 @@
+{
+  "t_pred_s": 0.0,
+  "how": "rule",
+  "fixes": {
+    "lead_accel_ff": true,
+    "a_curve_plan": 1.0
+  }
+}

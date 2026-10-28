@@ -1,0 +1,34 @@
+{
+  "config": "baseline",
+  "overrides": {},
+  "backend": "esmini",
+  "workers": 2,
+  "evaluate_py_sha256": "05c0735f0540a8d76d8476a4cb9b0f073603d8de16b991e32e34077ab27875a1",
+  "runs_total": 794,
+  "wall_time_s": 67.9,
+  "suites": {
+    "cutin_official": 6,
+    "cutin_grid": 347,
+    "cutout": 35,
+    "leadbrake": 34,
+    "curve": 51,
+    "engagement": 13,
+    "functional": 9,
+    "latprobe": 48
+  },
+  "latprobe_false_brake": 19,
+  "checks": {
+    "total": 142,
+    "pass": 126,
+    "fail": 4,
+    "info": 12
+  },
+  "crosscheck": {
+    "n": 78,
+    "same_states": 78,
+    "same_verdict": 78,
+    "max_d_min_gap_m": 0.0535,
+    "max_d_peak_decel": 0.0058,
+    "esmini_collision_flag_agrees": 78
+  }
+}
