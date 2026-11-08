@@ -18,7 +18,7 @@
   3. 弯道限速的规划减速度等于控制器自己的上限，跟踪滞后导致进弯偏快。
 
   另外，切入网格里“有权限、但反应太慢”的代表点，把感知理想化、去掉执行器滞后或把预测时域加长都能救回来。
-- **参数权衡**：切入预测时域 0–2.5 s 共 6 档，选择规则在运行前写进 `scripts/tradeoff.py`。预测越长，网格安全点越多（242 → 265），误制动也越多（5/144 → 76/144）。只有 0 s 满足“误制动 ≤10 %”，因此选中 0 s。
+- **参数权衡**：切入预测时域 0–2.5 s 共 6 档，选择规则写在 `scripts/tradeoff.py` 文件头（作者在运行前写好；仓库是一次性提交，git 历史不能证明先后）。预测越长，网格安全点越多（242 → 265），误制动也越多（5/144 → 76/144）。只有 0 s 满足“误制动 ≤10 %”，因此选中 0 s。
 - **改进后**：
   - 前车急减速网格安全次数 12 → 26，CCRb 无碰撞（TTC 2.38 s）；
   - 开弯道限速的越线 1 → 0 次；
@@ -361,7 +361,7 @@ esmini（OpenSCENARIO，固定步长 20 ms；本车由 ExternalController 接管
 
 ## 8 参数权衡：更早的切入反应 vs 误制动
 
-**选择规则**（运行前写在 `scripts/tradeoff.py` 文件头，未改动）：
+**选择规则**（写在 `scripts/tradeoff.py` 文件头；作者在运行前写好，仓库是一次性提交，git 历史不能证明先后。2026-11 复查时唯一改动是把文件头里网格点数的笔误 346 改为 347，所有运行用的都是 347 点网格，见 `results/tradeoff.csv` 的 grid_n 列）：
 
 - **候选**：t_pred ∈ {0, 0.5, 1.0, 1.5, 2.0, 2.5} s，其余为“基线 + 根因修正”。
 - **指标**：
@@ -446,7 +446,9 @@ esmini（OpenSCENARIO，固定步长 20 ms；本车由 ExternalController 接管
 
 ## 12 复现
 
-环境：Python 3.13，matplotlib（画图），pytest（测试），esmini v3.10.2 官方二进制（可选；没有时用 `--backend python`）。
+环境：Python 3.13（3.11 也可，见 `requirements.txt` / `pyproject.toml`），matplotlib（画图），pytest（测试），esmini v3.10.2 官方二进制（可选，https://github.com/esmini/esmini/releases/tag/v3.10.2；没有时用 `--backend python`）。
+
+**后端差异**：纯 Python 后端复现全部主套件（切入官方点、切入网格、切出、前车减速、弯道、驾驶员投入、功能、横向接近）的逐用例判定，但基线噪声种子稳健性检查 R171-VAL-01 / OFF-CI-NCAPAD-1 贴在 90 % 阈值上：esmini 8/10（不通过），Python 9/10（通过，第 4 个种子由 FAIL_TTC 变为 PASS_HARSH；10 个种子里的最小 TTC 由 0.988 s 变为 0.998 s，见 `results/robustness.csv`）。因此 `--backend python` 的基线需求检查是 127 通过 / 3 不通过，而不是 126 / 4；改进参数两种后端都是 128 / 2。78 例后端抽查只含主用例、不含噪声种子运行。CI 用 `scripts/check_results.py --compare` 核对这些，只允许这一行不同。
 
 ```bash
 python -X utf8 -I scripts/check_vendor.py        # P7 检测器与原件一致
