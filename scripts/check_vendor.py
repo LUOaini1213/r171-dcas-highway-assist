@@ -1,14 +1,19 @@
-"""Check that vendor/p7_dms is an unmodified copy of the P7 DMS files (SHA-256; byte comparison if P7 exists).
+"""Check that vendor/p7_dms is an unmodified copy of the DMS files from
+https://github.com/LUOaini1213/dms-distraction-warning-tests (commit 39a022d, folder dms/).
 
-Run:  python -X utf8 -I scripts/check_vendor.py      (exit code 1 on any difference)
+Always checks the SHA-256 values recorded below (and in vendor/p7_dms/SOURCE.md).  If a checkout of that
+repository is given with --p7 <dir>, the files are also compared byte for byte with <dir>/dms/.
+
+Run:  python -X utf8 -I scripts/check_vendor.py [--p7 <dms-distraction-warning-tests checkout>]
+      (exit code 1 on any difference)
 """
+import argparse
 import hashlib
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 VENDOR = ROOT / "vendor" / "p7_dms"
-P7 = ROOT.parent / "P7_座舱DMS与分心预警" / "dms"
 EXPECTED = {
     "__init__.py": "6d21590fa2dd5315949bf250850d21eebe3bdc91d3576e65ae86340715da13d6",
     "labels.py": "28d91b485bc5292769ecd06c171394c52407948b4350333f5f8a1b4895d9c8e4",
@@ -19,14 +24,26 @@ EXPECTED = {
 
 
 def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--p7", help="checkout of dms-distraction-warning-tests for a byte comparison")
+    a = ap.parse_args()
+    p7 = Path(a.p7) / "dms" if a.p7 else None
+    if p7 is not None and not p7.is_dir():
+        print(f"vendor/p7_dms: --p7 given but {p7} is not a directory")
+        return 1
     bad = []
     for name, h in EXPECTED.items():
         data = (VENDOR / name).read_bytes()
         if hashlib.sha256(data).hexdigest() != h:
             bad.append(f"{name}: SHA-256 differs from SOURCE.md")
-        if P7.exists() and (P7 / name).exists() and (P7 / name).read_bytes() != data:
+        if p7 is not None and (not (p7 / name).exists() or (p7 / name).read_bytes() != data):
             bad.append(f"{name}: differs from the P7 original")
-    print("vendor/p7_dms:", "OK (identical to P7)" if not bad else "; ".join(bad))
+    if bad:
+        print("vendor/p7_dms:", "; ".join(bad))
+    elif p7 is not None:
+        print("vendor/p7_dms: OK (hashes match and files are byte-identical to the P7 checkout)")
+    else:
+        print("vendor/p7_dms: hashes OK (no P7 checkout given with --p7, byte comparison skipped)")
     return 1 if bad else 0
 
 

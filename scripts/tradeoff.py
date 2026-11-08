@@ -1,10 +1,12 @@
 """Parameter trade-off: earlier cut-in reaction (longer lateral prediction horizon t_pred_s) versus false
 braking on non-threatening lateral approaches.
 
-SELECTION RULE - written into this file BEFORE the run (2026-10-28) and not changed afterwards:
+SELECTION RULE - the author wrote it into this file before the run (2026-10-28).  The repository was published as
+a single commit, so git history cannot show that order.  The only later edit (2026-11 review): the grid size in
+the G line said "346"; every run used the full 347-point grid (grid_n in results/tradeoff.csv), now stated below.
   Candidates   t_pred_s in {0.0, 0.5, 1.0, 1.5, 2.0, 2.5} s; everything else = BASELINE + FIXES
                (dcas/params.py: lead_accel_ff, a_curve_plan from the root-cause analysis).
-  Metrics      G  = safe runs in the cut-in grid (346 valid points, dcas/evaluate.py verdicts)
+  Metrics      G  = safe runs in the cut-in grid (347 valid points, dcas/evaluate.py verdicts)
                O  = safe official cut-in points among R171 Type 1/Type 2 and Euro NCAP VA TTC 0.0/1.5 (4)
                FB = false-braking runs on the LatProbe set (48 cases x 3 noise seeds = 144 runs;
                     dcas/evaluate.false_brake: >= 1.0 m/s2 commanded on the probe vehicle or >= 3 km/h speed loss)

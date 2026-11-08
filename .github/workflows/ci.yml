@@ -1,0 +1,56 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: "3.11"
+          - os: ubuntu-latest
+            python: "3.13"
+          - os: windows-latest
+            python: "3.11"
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: python -m pip install -r requirements.txt
+      - name: No local machine paths in tracked text files
+        run: |
+          if git grep -nIE '[A-Za-z]:[\/]+Users[\/]|/home/[a-z]|/Users/[A-Za-z]|P7_座舱' -- . ':!.github/workflows/ci.yml'; then
+            echo "local path found"; exit 1
+          fi
+      - name: Vendored P7 files unchanged
+        run: python -X utf8 -I scripts/check_vendor.py
+      - name: Unit tests (esmini tests skip without ESMINI_LIB)
+        run: python -X utf8 -B -I -m pytest -q tests -p no:cacheprovider
+      - name: README numbers vs committed results
+        run: python -X utf8 -I scripts/check_results.py
+      - name: tables.md regenerates unchanged; traceability complete
+        run: |
+          python -X utf8 -I scripts/make_tables.py
+          git diff --exit-code results/tables.md
+          python -X utf8 -I scripts/make_traceability.py
+          git checkout -- traceability.csv results/traceability_summary.md requirements.csv
+      - name: Re-run all suites with the pure-Python backend and compare with the committed esmini results
+        run: |
+          cp -r results "$RUNNER_TEMP/committed_results"
+          python -X utf8 -I scripts/run_all.py --backend python --workers 2
+          python -X utf8 -I scripts/run_all.py --backend python --workers 2 --config proposed
+          python -X utf8 -I scripts/check_results.py --compare "$RUNNER_TEMP/committed_results"

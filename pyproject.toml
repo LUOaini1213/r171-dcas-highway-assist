@@ -1,0 +1,12 @@
+[project]
+name = "r171-dcas-highway-assist"
+version = "0.1.0"
+description = "Closed-loop esmini tests of a self-written L2 highway assist against UN R171 DCAS and Euro NCAP 2026 (model-only results)."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["matplotlib==3.9.4", "pytest==8.3.5"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
